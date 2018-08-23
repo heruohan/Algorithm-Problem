@@ -10,7 +10,8 @@ Created on Thu Aug 23 22:58:25 2018
 leetcode题目：
 321.Create Maximum Number.
 '''
-
+'''
+解题思路：
 '''
 
 def choose(num,k):
