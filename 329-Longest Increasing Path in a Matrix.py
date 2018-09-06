@@ -59,30 +59,32 @@ class Solution:
 这样做可以避免重复运算，提高算法运行效率.
 '''
 class Solution:
-		def longestIncreasingPath(self,matrix):
-				m=len(matrix)
-				if(m==0):
-					return(0)
-				n=len(matrix[0])
-				dp=[[0]*n for _ in range(m)]
-				res=1
-				for i in range(m):
-					for j in range(n):
-						res=max(res,self.dfs(matrix,dp,i,j))
-				return(res)
-		def dfs(self,matrix,dp,x,y):
-				if(dp[x][y]):
-						return(dp[x][y])
-				lst=[(1,0),(-1,0),(0,1),(0,-1)]
-				m_lens=1
-				for i in lst:
-					m=x+i[0]
-					n=y+i[1]
-					if(m<0 or m>=len(matrix) or n<0 or n>=len(matrix[0]) or matrix[m][n]<=matrix[x][y]):
-						continue
-					m_lens=max(m_lens,1+self.dfs(matrix,dp,m,n))
-				dp[x][y]=m_lens
-				return(m_lens)
+    def longestIncreasingPath(self,matrix):
+        res=1
+        m1=len(matrix)
+        if(m1==0):
+            return(0)
+        n1=len(matrix[0])
+        dp=[[0]*n1 for _ in range(m1)]
+        for i in range(m1):
+            for j in range(n1):
+                res=max(res,self.dfs(matrix,dp,i,j))
+        return(res)
+    def dfs(self,matrix,dp,x,y):
+        if(dp[x][y]):
+            return(dp[x][y])
+        lst=[(0,-1),(0,1),(1,0),(-1,0)]
+        m_lens=1
+        for i in lst:
+            m=x+i[0]
+            n=y+i[1]
+            if(m<0 or m>=len(matrix) or n<0 or n>=len(matrix[0]) \
+               or matrix[m][n]<=matrix[x][y]):
+                continue
+            m_lens=max(m_lens,1+self.dfs(matrix,dp,m,n))
+        dp[x][y]=m_lens
+        return(m_lens)
+        
                
             
             
