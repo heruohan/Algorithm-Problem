@@ -34,7 +34,7 @@ class Solution:
         while(True):
             if(res>n):
                 return(count)
-            if(i>=lens or res<nums[i]):
+            if(i>=lens or res<nums[i]):    ##i>=lens必须在res<nums[i]前，否则程序会报错.
                 res+=res
                 count+=1
             else:
