@@ -13,3 +13,26 @@ def FastPowerOperation(a,b):
         b>>=1      ##参与res运算，当被权重数为0时，不参与res运算；
     return(res)
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
