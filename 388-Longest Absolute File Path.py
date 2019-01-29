@@ -42,8 +42,42 @@ Notice that a/aa/aaa/file1.txt is not the longest file path,if there is another 
 
 
 '''
-The answer:本题的题意是给定一个代表文件系统的字符串，返回其中最长绝对路径的长度，没有文件的话就返回0.
-本题可用三种思路解答.
+The answer:本题的题意是给定一个代表文件系统的字符串input，返回其中最长绝对路径的长度，没有文件的话就返回0.
+本题可用三种思路解答,但是核心思想都是动态规划，其解法都是在动态规划思想上的延伸，比如：
+input="dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext",然后以
+'\n'将其分割成字符串列表lst=['dir', '\tsubdir1', '\t\tfile1.ext', '\t\tsubsubdir1', '\tsubdir2', '\t\tsubsubdir2', '\t\t\tfile2.ext'].
+然后构建一个相应长度的dp数组：
+dp[i]:表示到达lst[i]时，所构成的绝对文件路径的长度；
+状态转移方程：统计lst[i]中'\t'的个数count,依次向前寻找比其个数少1的lst[j]所对应的dp[j].既
+             dp[i]=dp[j]+len(lst[i].lstrip('\t'))+1,其中j是lst[j]所对应的'\t'个数比lst[i]的
+             '\t'少1，且离lst[i]最近的元素的索引；
+因为字典中如果key相同的话，可以覆盖前面的key，因此根据状态转移方程的性质，可以用字典代替dp数组;
+
+
+解法1：
+1.构建res,字典m={0:0},start,表示深度的level.
+2.循环input,当到最后或者遇到'\n'时，提取字符串tmp,如果'.'在里面的话，证明是个文件，则更新res.
+否则，更新深度level，并将其放入字典中;同时，将level初始化为0，start更新为i+1;
+3.如果遇见的是'\t',则level加1，start加1；循环完毕后，返回res;
+代码如下.
+
+
+解法2：
+1.此种解法和解法1的思路相同，但是是直接将input转化为字符串列表，并循环；
+2.然后统计每个字符串中'\t'的个数，既深度；
+3.如果'.'在元素里面，则更新res,否则，更新深度并将其放入字典中；循环完毕后返回；
+代码如下.
+
+
+解法3：运用栈数据结构
+1.构建一个栈结构st,里面元素为元组，元组里元素分别表示对应元素的深度和绝对文件路径的长度;
+2.将input转换为字符串列表，并循环，统计相应元素的深度depth，如果当栈顶元素的深度top_depth>=depth时，
+则把栈顶元素删除，直至top_depth+1=depth;
+3.然后统计当前元素的绝对文件路径长度lens_sum,然后判断'.'如在当前元素里面，则更新res,否则，
+将(depth,lens_sum)压入栈中；
+4.直至循环完毕，返回res.
+代码如下.
+
 '''
 #解法1
 class Solution:
