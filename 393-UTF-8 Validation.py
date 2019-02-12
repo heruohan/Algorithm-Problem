@@ -34,7 +34,25 @@ class Solution:
 
 
 
-
+#解法2
+class Solution:
+    def validUft8(self,data):
+        count=0
+        for dt in data:
+            if(count==0):
+                if(dt>>5==0b110):
+                    count=1
+                elif(dt>>4==0b1110):
+                    count=2
+                elif(dt>>3==0b11110):
+                    count=3
+                elif(dt>>7):
+                    return(False)
+            else:
+                if(dt>>6!=0b10):
+                    return(False)
+                count-=1
+        return(count==0)
 
 
 
