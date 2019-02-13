@@ -72,6 +72,31 @@ class Solution:
         return(res)
         
 
+#代码3：
+class Solution:
+    def decodeString(self,s):
+        self.i=0
+        return(self.helps(s))
+        
+    def helps(self,s):
+        res=''
+        lens=len(s)
+        while(self.i<lens and s[self.i]!=']'):
+            if(s[self.i]<'0' or s[self.i]>'9'):
+                res+=s[self.i]
+                self.i+=1
+            else:
+                count=0
+                while(s[self.i]>='0' and s[self.i]<='9'):
+                    count=10*count+int(s[self.i])
+                    self.i+=1
+                self.i+=1
+                t=self.helps(s)
+                self.i+=1
+                res=res+t*count
+        return(res)
+        
+                        
 
 
 
