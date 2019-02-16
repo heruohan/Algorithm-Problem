@@ -32,6 +32,8 @@ The answer:本题是给定一个长度为n的整数数组A，Bk是A顺时针移�
 求出F(0),F(1)...F(n-1)的最大值；
 仔细观察，可以看出，F(0)和F(1),F(1)和F(2)有一定联系，可以推出一个一般性递推式表示F(i-1)和F(i)关系的状态转移方程;
 '''
+
+#解法1：迭代
 class Solution:
     def maxRotateFunction(self,A):
         lens=len(A)
@@ -48,7 +50,23 @@ class Solution:
         
 
 
-
+#解法2：递归
+class Solution:
+    def maxRotateFunction(self,A):
+        self.lens=len(A)
+        t=0
+        sums=0
+        for i in range(self.lens):
+            sums+=A[i]
+            t+=i*A[i]
+        return(self.helpFn(A,t,t,sums,1))
+        
+    def helpFn(self,A,res,tmp,sums,i):
+        if(i>=self.lens):
+            return(res)
+        tmp+=(sums-self.lens*A[self.lens-i])
+        res=max(res,tmp)
+        return(self.helpFn(A,res,tmp,sums,i+1))
 
 
 
