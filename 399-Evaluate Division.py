@@ -31,7 +31,7 @@ class Solution:
             visited.add(i)
             t=self.dfs(i,y,dic,visited)
             if(t!=-1.0):
-                return(dic[x][i])
+                return(dic[x][i]*t)
         return(-1.0)
         
 
