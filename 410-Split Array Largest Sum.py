@@ -55,7 +55,12 @@ The answer:本题是给定一个数组nums,和一个整数m，把nums分成连�
 思路：一个数组nums被分成m分，当被分成1份时，其最优解为nums所有元素的和sums；当分成len(nums)份时，其最优解为nums中的最大值max，因此，被分成m份所对应
 的最优解肯定位于sums和max之间；因此可以采用二分查找法；现在的难点就是每次的中位数mid对应的份数count怎么与m联系上，进行比较；
      同时，我们发现，份数m与其对应的最优解Y的函数是Y=fn(m)是减函数；
-     我们需要构造一个辅助函数can_split()来表示一个最优解和其可分的份数的映射关系，
+     我们需要构造一个辅助函数can_split()来表示一个最优解和其可分的份数的映射关系，以此来比较中位数mid对应的分数count与m的大小关系，由此根据减函数的
+     性质再推出mid与m所对应的最优值的大小情况，从而进行二分查找；
+     因此辅助函数can_split(lst,m,mid)可以这样构造，首先其是一个减函数，其次，参数mid在这里的含义是划分lst后的最优值，所以其将lst划分过程中，其是份数
+     中的最大值，因此各个份的和是小于等于mid的；所以在构造过程中循环lst,如果累计和cursum>mid时，则将份数统计值count加1，并重新计算cursum.一旦count
+     大于m时，就返回False，表示mid所对应的分数count是大于m的，由于是减函数所以m对应的最优值是大于mid的；如果循环完毕后，则返回True，表示mid所对应的
+     份数是小于等于m,由于是减函数所以m对应的最优值是小于等于mid；从而可以进行二分查找；
 '''
 
 
@@ -88,18 +93,18 @@ class Solution:
             right+=nums[i]
         while(left<right):
             mid=(left+right)//2
-            if(self.can_split(nums,m,mid)):
+            if(self.can_split(nums,m,mid)):    #表示m对应的最优值是小于等于mid的
                 right=mid
             else:
-                left=mid+1
+                left=mid+1   #表示m对于的最优值是大于mid的
         return(left)
     
-    def can_split(self,lst,m,mid):
-        cursum=0
+    def can_split(self,lst,m,mid):  #mid其实是表示划分后的最优值
+        cursum=0  #累计和
         count=1
         for i in range(len(lst)):
             cursum+=lst[i]
-            if(cutrsum>mid):
+            if(cutrsum>mid):  #保证累计和小于等于mid，使得mid是其最优值
                 cursum=lst[i]
                 count+=1
                 if(count>m):
