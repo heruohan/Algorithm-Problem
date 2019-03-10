@@ -6,7 +6,13 @@ Created on Sun Mar 10 13:12:42 2019
 """
 
 
-
+'''
+The problem 419:BattleShips in a Board
+Given a 2D Board,count how many battleships are in it.The battleships are represented with 'X's,empty slots are represented with
+'.'s.you may assume the following rules:
+1.you recieve a valid board,made of only battleships or empty slots.
+2.
+'''
 #解法1
 class Solution:
     def countBattleships(self, board):
