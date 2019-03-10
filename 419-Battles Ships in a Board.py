@@ -41,7 +41,7 @@ class Solution:
 
 
 #解法2
-class Solution1:
+class Solution:
     def countBattleships(self, board):
         res=0
         m=len(board)
@@ -57,5 +57,29 @@ class Solution1:
                 
                 
                 
-                
+#解法3：
+class Solution:
+    def countBattleships(self,board):
+        res=0
+        h=len(board)
+        w=len(board[0])
+        dirs=((0,1),(1,0))
+        visited=[[False]*w for _ in range(h)]
+        for i in range(h):
+            for j in range(w):
+                if(board[i][j]=='X' and not visited[i][j]):
+                    res+=1
+                    st=[(i,j)]
+                    while(st):
+                        tmp=st.pop()
+                        visited[tmp[0]][tmp[1]]=True
+                        for d in dirs:
+                            x=tmp[0]+d[0]
+                            y=tmp[1]+d[1]
+                            if(x>=0 and x<h and y>=0 and y<w and \
+                               board[x][y]=='X' and not visited[x][y]):
+                                st.append((x,y))
+        return(res)
+        
+             
                 
