@@ -31,6 +31,29 @@ class Solution:
         
         
                 
+#代码2
+class Solution:
+    def originalDigits(self,s):
+        import collections
+        mps={}
+        tables=['zero','one','two','three','four','five','six','seven','eight','nine']
+        res=''
+        m=collections.OrderedDict([('z','zero'),('w','two'),('u','four'),('x','six'),\
+                                  ('g','eight'),('o','one'),('h','three'),('f','five'),\
+                                  ('s','seven'),('i','nine')])
+        for i in s:
+            if(i not in mps):
+                mps[i]=1
+            else:
+                mps[i]+=1
+        for i in m:
+            if(i in mps and mps[i]>0):
+                while(mps[i]):
+                    for j in m[i]:
+                        mps[j]-=1
+                    res+=str(tables.index(m[i]))
+        return(''.join(sorted(res)))
+    
             
             
             
