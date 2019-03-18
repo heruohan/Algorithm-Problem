@@ -62,7 +62,10 @@ lst用以存储根节点到当前节点路径上的所有节点；
 
 
 解法4：
-思路：
+思路：解法4是解法3的变异，可以减少算法中的重复计算，其辅助函数helps(node,cursum,target,m),参数cursum为从根节点截至到node父节点路径的
+累积和，m为截至到当前节点，此路径经历的所有路径的积累和与其个数的映射字典；因此，helps函数的返回值为在当前节点node，及cursum,m的基础上，返回node树
+中有多少条路径的和为sum的数量；
+代码如下；
 
 '''
 
@@ -171,7 +174,7 @@ class Solution:
 class Solution:
     def pathSum(self,root,sum):
         import collections
-        m=collections.defaultdict(int)
+        m=collections.defaultdict(int)  #初始化一个函数工厂字典，对于没有的键，其值为0.
         m[0]=1
         return(self.helps(root,0,sum,m))
     
