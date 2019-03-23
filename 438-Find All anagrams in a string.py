@@ -40,3 +40,34 @@ class Solution:
 
 
 
+#解法2：滑动窗口法
+class Solution:
+    def findAnagram(self,s,p):
+        import collections
+        len_s=len(s)
+        len_p=len(p)
+        res=[]
+        m=collections.defaultdict(int)
+        count=len_p
+        for i in p:
+            m[i]+=1
+        left,right=0,0
+        while(right<len_s):
+            if(m[s[right]]>=1):
+                count-=1
+            m[s[right]]-=1
+            right+=1
+            if(count==0):
+                res.append(left)
+            if(right-left==len_p):
+                if(m[s[left]]>=0):
+                    count+=1
+                m[s[left]]+=1
+                left+=1
+        return(res)
+        
+
+
+
+
+
