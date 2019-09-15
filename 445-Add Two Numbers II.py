@@ -57,7 +57,33 @@ class Solution:
             return res
         
         
+###精简
+class Solution:
+    def addTwoNumbers(self,l1,l2):
+        s1=[]
+        s2=[]
+        while(l1):
+            s1.append(l1.val)
+            l1=l1.next
         
+        while(l2):
+            s2.append(l2.val)
+            l2=l2.next
+        
+        sums=0
+        cur=ListNode(0)
+        while(s1!=[] or s2!=[]):
+            if(s1!=[]):
+                sums+=s1.pop()
+            if(s2!=[]):
+                sums+=s2.pop()
+            
+            cur.val=sums % 10
+            res=ListNode(sums//10)
+            res.next=cur
+            cur=res
+            sums//=10
+        return(cur.next if(cur.val==0) else cur)
         
         
         
