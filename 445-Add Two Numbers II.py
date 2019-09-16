@@ -15,7 +15,8 @@ class ListNode:
         self.next=None
 '''
 
-####解法1：
+####解法1：栈数据结构辅助
+
 class Solution:
     def addTwoNumbers(self,l1,l2):
         s1=[]
@@ -85,7 +86,10 @@ class Solution:
             sums//=10
         return(cur.next if(cur.val==0) else cur)
         
-        
+
+
+ #解法2：递归
+
 
         
 JAVA：
@@ -101,7 +105,8 @@ JAVA：
     }
 }
 */
- 
+
+//解法1：栈数据结构辅助
 class Solution{
     public ListNode addTwoNumbers(ListNode l1,ListNode l2)
     {
@@ -145,6 +150,62 @@ class Solution{
         return cur.val==0 ? cur.next : cur;
     }
 }
+
+
+
+//解法2：递归
+class Solution{
+    public ListNode addTwoNumbers(ListNode l1,ListNode l2)
+    {
+        int len_1=getLength(l1);
+        int len_2=getLength(l2);
+        
+        ListNode head=new ListNode(1);
+        ListNode child=len_1>len_2 ? helper(l1,l2,len_1-len_2) : helper(l2,l1,len_2-len_1);
+        
+        if(child.val>9)
+        {
+            child.val %=10;
+            head.next=child;
+            return head;
+        }
+        
+        return child;
+    }
+    
+    public int getLength(ListNode node)
+    {
+        int count=0;
+        while(node!=null)
+        {
+            count++;
+            node=node.next;
+        }
+        return count;
+    }
+    
+    public ListNode helper(ListNode l1,ListNode l2,int diff)
+    {
+        if(l1==null)
+        {
+            return null;
+        }
+        
+        ListNode res=diff==0 ? new ListNode(l1.val+l2.val) : new ListNode(l1.val);
+        ListNode child=diff==0 ? helper(l1.next,l2.next,0) : helper(l1.next,l2,diff-1);
+        
+        if(child!=null && child.val>9)
+        {
+            child.val %=10;
+            ++res.val;
+        }
+        
+        res.next=child;
+        return res;
+        
+    }
+}
+
 
         
         
