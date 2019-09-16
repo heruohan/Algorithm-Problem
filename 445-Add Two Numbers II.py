@@ -5,7 +5,9 @@ Created on Thu Sep  5 22:13:31 2019
 @author: hecongcong
 """
 
+'''
 
+'''
 
 #definition for singly-linked list.
 '''
@@ -89,7 +91,38 @@ class Solution:
 
 
  #解法2：递归
-
+class Solution:
+    def addTwoNumbers(self,l1,l2):
+        len_1=self.getLength(l1)
+        len_2=self.getLength(l2)
+        head=ListNode(1)
+        child=self.helper(l1,l2,len_1-len_2) if(len_1>len_2) else self.helper(l2,l1,len_2-len_1)
+        
+        if(child.val>9):
+            child.val %=10
+            head.next=child
+            return head
+        return child
+      
+    
+    def getLength(self,node):
+        count=0
+        while(node):
+            count+=1
+            node=node.next
+        return count
+    
+    def helper(self,l1,l2,diff):
+        if(not l1):
+            return None
+        res=ListNode(l1.val+l2.val) if(diff==0) else ListNode(l1.val)
+        child=self.helper(l1.next,l2.next,0) if(diff==0) else self.helper(l1.next,l2,diff-1)
+        
+        if(child and child.val>9):
+            child.val %=10
+            res.val+=1
+        res.next=child
+        return res
 
         
 JAVA：
