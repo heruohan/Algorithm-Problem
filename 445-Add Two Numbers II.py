@@ -6,7 +6,32 @@ Created on Thu Sep  5 22:13:31 2019
 """
 
 '''
+Question 445:Add Two Numbers II
+You are given two non-empty linked lists representing two non-negative integers.the most significant digit comes first
+and each of their node contain a single digit.Add the two numbers and return it as a linked list.
 
+you may assume the two numners do not contain any leading zero,except the number 0 itself.
+Follow up:
+what if you can not modified the input lists? In other words,reversing the lists is not allowed.
+
+Example:
+Input:(7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output:7 -> 8 -> 0 -> 7
+'''
+
+
+'''
+Answer:本题是给定两个单链表，分别代表两个非负的整数，然后相加，并将其结果用链表表示；因为链表只能从前往后循环，而加法是从
+后往前进行的，所以有以下两种解法。
+解法1：栈数据结构辅助
+1.构建两个栈s1和s2,分别将链表l1和l2各个节点的值存入；
+2.然后，根据栈的先进后出的原则，循环对两个栈的顶部元素进行操作，并且考虑进位的情况；
+
+解法2：递归
+1.递归的思想就是层层将大问题，分解为相关联的小问题，因此，本题可以用递归来解答；
+2.构建递归函数helper(l1,l2,diff),其中l1,l2表示两个要相加的链表，并且l1的长度肯定大于l2，diff是两个链表长度的差值，
+此函数的返回值为两个链表的相加值，但是没有考虑最高一位的进位情况；
+3.在主函数中，将递归函数返回值的最高位进位情况考虑进去，并返回结果；
 '''
 
 #definition for singly-linked list.
